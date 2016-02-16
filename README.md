@@ -2,7 +2,7 @@
 
 Simple system for touching in and out, charging money to a payment card
 
-![OPystercasrd image](http://static.standard.co.uk/s3fs-public/thumbnails/image/2013/10/31/11/oyster.jpgoyster)
+![Oystercard image](http://static.standard.co.uk/s3fs-public/thumbnails/image/2013/10/31/11/oyster.jpg)
 
 ### User stories:
 
