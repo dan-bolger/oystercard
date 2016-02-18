@@ -40,7 +40,7 @@ I need to have the minimum amount for a single journey
 In order to pay for my journey
 As a customer
 I need to pay for my journey when it's complete
-[ ]
+[x]
 
 In order to pay for my journey
 As a customer
