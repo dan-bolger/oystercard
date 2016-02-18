@@ -10,7 +10,6 @@ MINIMUM_CHARGE = 1
 
   def initialize
     @balance = 0
-    @in_journey = false
   end
 
   def top_up(amount)
@@ -19,18 +18,17 @@ MINIMUM_CHARGE = 1
   end
 
   def in_journey?
-    @in_journey
+    !!entry_station
   end
 
   def touch_in(station)
     fail "Not enough money. Please top up." if balance < MINIMUM_BALANCE
-    @in_journey = true
     @entry_station = station
   end
 
   def touch_out
     send(:deduct, MINIMUM_CHARGE)
-    @in_journey = false
+    @entry_station = nil
   end
 
   private
