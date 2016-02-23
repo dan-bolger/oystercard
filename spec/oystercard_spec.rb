@@ -31,28 +31,31 @@ describe Oystercard do
         expect(subject).to be_in_journey
       end
 
-      it 'can touch out' do
-        subject.touch_in(station)
-        subject.touch_out(station)
-        expect(subject).not_to be_in_journey
-      end
-
       it 'reduces the balance when touching out' do
         expect{ subject.touch_out(station) }.to change{ subject.balance }.by -Oystercard::MINIMUM_CHARGE
       end
 
-      it 'records the entry station' do
-        subject.touch_in(station)
-        expect(subject.entry_station).to eq station
-      end
+      context 'card is in journey' do
 
-      let(:entry_station) { double :station }
-      let(:exit_station) { double :station }
+        before{ subject.touch_in(station)}
 
-      it 'records the exit station' do
-        subject.touch_in(entry_station)
-        subject.touch_out(exit_station)
-        expect(subject.exit_station).to eq exit_station
+        let(:entry_station) { double :station }
+        let(:exit_station) { double :station }
+
+        it 'can touch out' do
+          subject.touch_out(station)
+          expect(subject).not_to be_in_journey
+        end
+
+        it 'has recorded the entry station' do
+          expect(subject.entry_station).to eq station
+        end
+
+        it 'records the exit station when touching out' do
+          subject.touch_out(exit_station)
+          expect(subject.exit_station).to eq exit_station
+        end
+
       end
 
     end
