@@ -12,6 +12,9 @@ describe Oystercard do
     expect{ subject.top_up 1 }.to change{ subject.balance }.by 1
   end
 
+  it 'holds a log of all the journeys' do
+    expect(subject.journeys).to be_empty
+  end
 
   context 'balance is full' do
 
@@ -22,7 +25,7 @@ describe Oystercard do
         expect{ subject.top_up 1}.to raise_error "Cannot top up this amount!! Max limit = #{maximum_balance}"
       end
 
-      it 'is initially not inna journey' do
+      it 'is initially not on a journey' do
         expect(subject).not_to be_in_journey
       end
 
@@ -33,6 +36,14 @@ describe Oystercard do
 
       it 'reduces the balance when touching out' do
         expect{ subject.touch_out(station) }.to change{ subject.balance }.by -Oystercard::MINIMUM_CHARGE
+      end
+
+      let(:journey){ {entry_station: entry_station, exit_station: exit_station} }
+
+      it 'touching in creates a journey' do
+        subject.touch_in(entry_station)
+        subject.touch_out(exit_station)
+        expect(subject.journeys).to include journey
       end
 
       context 'card is in journey' do
