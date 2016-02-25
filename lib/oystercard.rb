@@ -26,15 +26,15 @@ MINIMUM_CHARGE = 1
 
   def touch_in(station)
     fail "Not enough money. Please top up." if balance < MINIMUM_BALANCE
-    @entry_station = station
-    @journeys.merge!(:entry_station=>@entry_station)
+    # @entry_station = station
+    @journeys.merge!(:entry_station=>station)
   end
 
   def touch_out(station)
     send(:deduct, MINIMUM_CHARGE)
-    @exit_station = station
-    @journeys.merge!(:exit_station=>@exit_station)
-    @entry_station = nil
+    # @exit_station = station
+    @journeys.merge!(:exit_station=>station)
+    # @entry_station = nil
   end
 
   private

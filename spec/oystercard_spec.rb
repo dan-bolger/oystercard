@@ -3,6 +3,9 @@ require 'oystercard'
 describe Oystercard do
 
   let(:station){ double :station }
+  let(:entry_station) { double :station }
+  let(:exit_station) { double :station }
+  let(:journey){ {entry_station: entry_station, exit_station: exit_station} }
 
   it 'has a balance of zero' do
     expect(subject.balance).to eq(0)
@@ -29,7 +32,7 @@ describe Oystercard do
         expect(subject).not_to be_in_journey
       end
 
-      it 'can touch in' do
+      xit 'can touch in' do
         subject.touch_in(station)
         expect(subject).to be_in_journey
       end
@@ -37,11 +40,6 @@ describe Oystercard do
       it 'reduces the balance when touching out' do
         expect{ subject.touch_out(station) }.to change{ subject.balance }.by -Oystercard::MINIMUM_CHARGE
       end
-
-      let(:entry_station) { double :station }
-      let(:exit_station) { double :station }
-
-      let(:journey){ {entry_station: entry_station, exit_station: exit_station} }
 
       it 'holds a journey' do
         subject.touch_in(entry_station)
@@ -53,19 +51,16 @@ describe Oystercard do
 
         before{ subject.touch_in(station)}
 
-        let(:entry_station) { double :station }
-        let(:exit_station) { double :station }
-
         it 'can touch out' do
           subject.touch_out(station)
           expect(subject).not_to be_in_journey
         end
 
-        it 'has recorded the entry station' do
+        xit 'has recorded the entry station' do
           expect(subject.entry_station).to eq station
         end
 
-        it 'records the exit station when touching out' do
+        xit 'records the exit station when touching out' do
           subject.touch_out(exit_station)
           expect(subject.exit_station).to eq exit_station
         end
