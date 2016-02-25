@@ -38,9 +38,12 @@ describe Oystercard do
         expect{ subject.touch_out(station) }.to change{ subject.balance }.by -Oystercard::MINIMUM_CHARGE
       end
 
+      let(:entry_station) { double :station }
+      let(:exit_station) { double :station }
+
       let(:journey){ {entry_station: entry_station, exit_station: exit_station} }
 
-      it 'touching in creates a journey' do
+      it 'holds a journey' do
         subject.touch_in(entry_station)
         subject.touch_out(exit_station)
         expect(subject.journeys).to include journey
