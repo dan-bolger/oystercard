@@ -23,6 +23,7 @@ MINIMUM_CHARGE = 1
 
   def touch_in(station)
     fail "Not enough money. Please top up." if balance < MINIMUM_BALANCE
+
     @journeys = @journeys.merge(:entry_station=>station)
   end
 
