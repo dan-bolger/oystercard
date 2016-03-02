@@ -18,7 +18,7 @@ MINIMUM_CHARGE = 1
   end
 
   def in_journey?
-    !!entry_station
+    @journey
   end
 
   def touch_in(station)
@@ -29,9 +29,9 @@ MINIMUM_CHARGE = 1
 
   def touch_out(station)
     send(:deduct, MINIMUM_CHARGE)
-    p @journey
     @journey = @journey.merge(:exit_station=>station)
     @journeys << @journey
+    @journey = nil
   end
 
   private
