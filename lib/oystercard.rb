@@ -1,7 +1,7 @@
 
 class Oystercard
 
-attr_reader :balance, :journeys, :entry_station
+attr_reader :balance, :journeys, :entry_station, :exit_station
 
 BALANCE_LIMIT = 90
 MINIMUM_BALANCE = 1
@@ -9,7 +9,7 @@ MINIMUM_CHARGE = 1
 
   def initialize
     @balance = 0
-    @journeys = { }
+    @journeys = [ ]
   end
 
   def top_up(amount)
@@ -23,14 +23,15 @@ MINIMUM_CHARGE = 1
 
   def touch_in(station)
     fail "Not enough money. Please top up." if balance < MINIMUM_BALANCE
-
-    @journeys = @journeys.merge(:entry_station=>station)
+    @journey = {}
+    @journey = @journey.merge(:entry_station=>station)
   end
 
   def touch_out(station)
     send(:deduct, MINIMUM_CHARGE)
-    @journeys = @journeys.merge(:exit_station=>station)
-    # @entry_station = nil
+    p @journey
+    @journey = @journey.merge(:exit_station=>station)
+    @journeys << @journey
   end
 
   private

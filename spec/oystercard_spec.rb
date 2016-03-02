@@ -5,7 +5,6 @@ describe Oystercard do
   let(:station){ double :station }
   let(:entry_station) { double :station }
   let(:exit_station) { double :station }
-  let(:journey){ {entry_station: entry_station, exit_station: exit_station} }
 
   it 'has a balance of zero' do
     expect(subject.balance).to eq(0)
@@ -20,6 +19,8 @@ describe Oystercard do
   end
 
   context 'balance is full' do
+
+    let(:journey){ {entry_station: entry_station, exit_station: exit_station} }
 
     before{ subject.top_up(Oystercard::BALANCE_LIMIT)}
 
@@ -38,7 +39,8 @@ describe Oystercard do
       end
 
       it 'reduces the balance when touching out' do
-        expect{ subject.touch_out(station) }.to change{ subject.balance }.by -Oystercard::MINIMUM_CHARGE
+        subject.touch_in(entry_station)
+        expect{ subject.touch_out(exit_station) }.to change{ subject.balance }.by -Oystercard::MINIMUM_CHARGE
       end
 
       it 'holds a journey' do
