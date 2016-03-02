@@ -58,15 +58,6 @@ describe Oystercard do
           expect(subject).not_to be_in_journey
         end
 
-        xit 'has recorded the entry station' do
-          expect(subject.entry_station).to eq station
-        end
-
-        xit 'records the exit station when touching out' do
-          subject.touch_out(exit_station)
-          expect(subject.exit_station).to eq exit_station
-        end
-
       end
 
     end
